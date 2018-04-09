@@ -1,0 +1,70 @@
+﻿<button type="submit" class="uk-button uk-button-primary" (click)="disabled = !disabled">{{disabled ? 'Enable' : 'Disable'}}</button>
+
+<h2>Template Forms</h2>
+
+<form novalidate #templateForm="ngForm" (ngSubmit)="templateFormSubmit(templateForm)">
+	<fieldset class="uk-fieldset" [disabled]="disabled">
+		<div>
+			<label class="uk-form-label">Number:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" name="number" [(ngModel)]="model.number" required pattern="\d+">
+		</div>
+
+		<div>
+			<label class="uk-form-label">String:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" name="string" [(ngModel)]="model.string" required>
+		</div>
+
+		<div ngModelGroup="child">
+			<label class="uk-form-label">Child:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" name="child.string" [(ngModel)]="model.child.string">
+			<button type="button" class="uk-button uk-button-primary" (click)="templateFormSearch()">Search</button>
+		</div>
+
+		<div>
+			<button type="submit" class="uk-button uk-button-primary">Save</button>
+		</div>
+
+		<div>
+			<p>Form Valid: {{templateForm.valid}}</p>
+			<p>Form Value: {{templateForm.value | json}}</p>
+			<p>Model Value: {{model | json}}</p>
+		</div>
+	</fieldset>
+</form>
+
+<h2>Reactive Forms</h2>
+
+<form novalidate [formGroup]="reactiveForm" (ngSubmit)="reactiveFormSubmit(reactiveForm)">
+	<fieldset class="uk-fieldset" [disabled]="disabled">
+		<div>
+			<label class="uk-form-label">Number:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" formControlName="number" required pattern="\d+">
+		</div>
+
+		<div>
+			<label class="uk-form-label">String:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" formControlName="string" required>
+		</div>
+
+		<div formGroupName="child">
+			<label class="uk-form-label">Child:</label>
+			<br />
+			<input type="text" class="uk-input uk-form-width-large" formControlName="string">
+			<button type="button" class="uk-button uk-button-primary" (click)="reactiveFormsSearch()">Search</button>
+		</div>
+
+		<div>
+			<button type="submit" class="uk-button uk-button-primary">Save</button>
+		</div>
+
+		<div>
+			<p>Form Valid: {{reactiveForm.valid}}</p>
+			<p>Form Value: {{reactiveForm.value | json}}</p>
+		</div>
+	</fieldset>
+</form>

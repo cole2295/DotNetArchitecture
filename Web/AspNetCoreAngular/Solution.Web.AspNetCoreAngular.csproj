@@ -1,0 +1,92 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.0</TargetFramework>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+		<IsPackable>false</IsPackable>
+		<SpaRoot>ClientApp\</SpaRoot>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+		<BuildServerSideRenderer>false</BuildServerSideRenderer>
+		<Version>0.0.0</Version>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.ResponseCaching" Version="2.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.1" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Remove="%2a%2a\**" />
+		<Compile Remove="ClientApp\dist\**" />
+		<Compile Remove="wwwroot\**" />
+		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="%2a%2a\**" />
+		<Content Remove="ClientApp\dist\**" />
+		<Content Remove="wwwroot\**" />
+		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="%2a%2a\**" />
+		<EmbeddedResource Remove="ClientApp\dist\**" />
+		<EmbeddedResource Remove="wwwroot\**" />
+		<None Remove="%2a%2a\**" />
+		<None Remove="ClientApp\dist\**" />
+		<None Remove="wwwroot\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="%2a%2a\%2a.config" />
+		<Content Remove="%2a%2a\%2a.cshtml" />
+		<Content Remove="%2a%2a\%2a.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="ClientApp\package-lock.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Application\Applications\Solution.Application.Applications.csproj" />
+		<ProjectReference Include="..\..\CrossCutting\DependencyInjection\Solution.CrossCutting.DependencyInjection.csproj" />
+		<ProjectReference Include="..\..\CrossCutting\Extensions\Solution.CrossCutting.Extensions.csproj" />
+		<ProjectReference Include="..\..\CrossCutting\Security\Solution.CrossCutting.Security.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\Databases.EntityFrameworkCore\Solution.Infrastructure.Databases.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\..\Model\Enums\Solution.Model.Enums.csproj" />
+		<ProjectReference Include="..\..\Model\Models\Solution.Model.Models.csproj" />
+	</ItemGroup>
+	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+		<Exec Command="node --version" ContinueOnError="true">
+			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+		</Exec>
+		<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project." />
+		<Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+	</Target>
+	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+		<Exec WorkingDirectory="$(SpaRoot)" Command="npm run production" />
+		<Exec WorkingDirectory="$(SpaRoot)" Command="npm run production" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+		<ItemGroup>
+			<DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+			<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+				<RelativePath>%(DistFiles.Identity)</RelativePath>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			</ResolvedFileToPublish>
+		</ItemGroup>
+	</Target>
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<TypeScriptTarget>ESNext</TypeScriptTarget>
+		<TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+		<TypeScriptModuleKind>ES6</TypeScriptModuleKind>
+		<TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+		<TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+		<TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+		<TypeScriptOutFile />
+		<TypeScriptOutDir />
+		<TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+		<TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+		<TypeScriptSourceMap>True</TypeScriptSourceMap>
+		<TypeScriptMapRoot />
+		<TypeScriptSourceRoot />
+	</PropertyGroup>
+</Project>

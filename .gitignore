@@ -1,0 +1,84 @@
+﻿# Directories and Files
+.vs
+node_modules
+dist
+package-lock.json
+.cache/babel-loader
+*Properties/PublishProfiles
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+*.pubxml
+
+# Visual Studio Files
+*.suo
+*.user
+*.userosscache
+
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# NuGet Packages
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# MSTest Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Click-Once
+publish/
+
+# Publish Web Output
+*.[Pp]ublish.xml
+*.azurePubxml
+*.publishproj
+
+# Microsoft Azure Web App publish Settings
+PublishScripts/
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+
+# Visual Studio Cache Files
+*.[Cc]ache
+!*.[Cc]ache/
+
+# Backup and Upgrade Files
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+
+# SQL Server files
+*.mdf
+*.ldf

@@ -1,0 +1,31 @@
+﻿<div>
+	<form #form="ngForm" ngNativeValidate (ngSubmit)="submit()">
+		<fieldset class="uk-fieldset">
+			<div>
+				<label class="uk-form-label">Login:</label>
+				<br />
+				<input type="text" class="uk-input uk-form-width-large" required autocomplete="off" autofocus="autofocus" name="login" [(ngModel)]="authenticationModel.login">
+			</div>
+
+			<br />
+
+			<div>
+				<label class="uk-form-label">Password:</label>
+				<br />
+				<input type="password" class="uk-input uk-form-width-large" required autocomplete="off" name="password" [(ngModel)]="authenticationModel.password">
+			</div>
+
+			<br />
+
+			<div>
+				<button type="submit" class="uk-button uk-button-primary" [disabled]="form.invalid">Login</button>
+			</div>
+		</fieldset>
+	</form>
+
+	<br />
+
+	<button class="uk-button uk-button-primary" uk-tooltip="Authenticated?" (click)="authenticated()">Authenticated?</button>
+
+	<button class="uk-button uk-button-primary" uk-tooltip="Call Server Only Once" (click)="callServerOnlyOnce()">Call Server Only Once</button>
+</div>
